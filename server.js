@@ -41,7 +41,7 @@
     app.set("views", path.join(__dirname,"views"));
 
     // rendering all pages
-    app.get('/home', (req, res) => {
+    app.get('/', (req, res) => {
         res.render('home');
     });
 
