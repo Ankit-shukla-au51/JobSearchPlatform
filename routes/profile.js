@@ -4,26 +4,19 @@ const UsersInfo = require("../models/usersinfo");
 
 const router = express.Router();
 
-// router.get('/profile/:id', async (req, res) => {
-//     try {
-//       const user = await Users.findById(req.params.id);
-//       if (user) {
-//         res.render('profile', { user: user });
-//       } else {
-//         res.redirect('/signin');
-//       }
-//     } catch (error) {
-//       console.log(error);
-//       res.redirect('/signin');
-//     }
-//   });
 
 router.get('/profile', async (req, res) => {
     try {
       if (req.isAuthenticated()) {
         const user = await Users.findById(req.user._id);
+        const userinfo = await UsersInfo.findOne({email:user.email});
         if (user) {
-          res.render('profile', { user: user });
+          if(userinfo){
+            res.render('profile', { user: user,userinfo:userinfo })
+          }
+          else{
+          res.render('profile', { user: user,userinfo:""});
+          }
         } else {
           res.redirect('/signin');
         }
@@ -38,15 +31,18 @@ router.get('/profile', async (req, res) => {
 
 
 
+
     //creating new user in database
     router.post('/profile', async(req, res) => {
 
 
         try{
          if (req.isAuthenticated()) {
+           const user = await Users.findById(req.user._id);
             const Userinfo = new UsersInfo({
-                 fullname:req.body.name,
-                 email:req.body.email,
+                 fullname:user.fullname,
+                //  email:req.body.email,
+                email:user.email,
                  phone :req.body.phone,
                  address: req.body.address,
                  jobtitle:req.body.jobtitle,
@@ -66,12 +62,10 @@ router.get('/profile', async (req, res) => {
 
             }); 
            
-
-
              // Save the userinfo to the database
              await Userinfo.save();
-            // res.status(201).render('signin', { error: req.query.error });
-            res.status(201).send("profile info updated")
+            
+            res.status(201).redirect("/profile");
         }
         else{
             res.redirect("/signin");

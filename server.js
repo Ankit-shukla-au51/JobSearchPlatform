@@ -5,9 +5,11 @@
     const bodyParser = require("body-parser");
     const bcrypt = require('bcrypt');
     const session = require('express-session');
-    const signupUser = require("./routes/signup");
-    const signinUser = require("./routes/auth");
+    // const signupUser = require("./routes/signup");
+    const authUser = require("./routes/auth");
     const userprofile = require("./routes/profile");
+    const updateprofile = require("./routes/editprofile");
+    const jobs = require("./routes/jobs");
 
     const port = process.env.PORT || 3000;
 
@@ -40,23 +42,19 @@
     app.set("view engine","ejs");
     app.set("views", path.join(__dirname,"views"));
 
+    app.use(express.static('public'));
+
     // rendering all pages
     app.get('/', (req, res) => {
         res.render('home');
     });
 
-    app.get('/employer', (req, res) => {
-        res.render('employer');
-    })   
-
-    app.get('/jobs', (req, res) => {
-        res.render('jobs');
-    })
     
-
-    app.use("/", signupUser);
-    app.use("/", signinUser);
+    app.use("/", authUser);
     app.use("/", userprofile);
+    app.use("/", updateprofile);
+    app.use("/", jobs);
+
 
 
     app.listen(port,()=>{
