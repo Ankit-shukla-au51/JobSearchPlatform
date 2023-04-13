@@ -2,7 +2,11 @@ const express = require("express");
 const Users = require("../models/users");
 const UsersInfo = require("../models/usersinfo");
 
+
+
+
 const router = express.Router();
+
 
 
 router.get('/profile', async (req, res) => {
@@ -12,7 +16,7 @@ router.get('/profile', async (req, res) => {
         const userinfo = await UsersInfo.findOne({email:user.email});
         if (user) {
           if(userinfo){
-            res.render('profile', { user: user,userinfo:userinfo })
+            res.render('profile', { user: user,userinfo:userinfo})
           }
           else{
           res.render('profile', { user: user,userinfo:""});
@@ -78,5 +82,6 @@ router.get('/profile', async (req, res) => {
         }
     
     })   
+
 
   module.exports = router;

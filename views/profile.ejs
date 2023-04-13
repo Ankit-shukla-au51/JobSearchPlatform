@@ -18,16 +18,21 @@
 
     <main>
         <section class="profile">
-            <div class="container">
-                <div class="profile-header">
-                    <div class="profile-picture">
-                        <img src="img/profile-pic.jpg" alt="Profile Picture">
+            
+                    <div class="container">
+                        <div class="profile-header">
+                                                        
+                             <div class="profile-info">
+                                <h1>Welcome, <%= user.fullname %>!</h1>
+                                <a href="/editprofile?email=<%= user.email %>">Edit Profile</a>
+                            </div>
+                        </div>
+                    
                     </div>
-                    <div class="profile-info">
-                        <h1>Welcome, <%= user.fullname %>!</h1>
-                        <a href="/editprofile?email=<%= user.email %>">edit</a>
+                
+                    <div id="imageUploadForm" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                      
                     </div>
-                </div>
                 <div class="profile-body">
                     <div class="section">
                         <h3>Personal Information</h3>
@@ -235,6 +240,9 @@
             </div>
         </section>
     </main>
+
+    <%- include("partials/footer.ejs"); -%>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

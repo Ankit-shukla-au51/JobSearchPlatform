@@ -80,19 +80,12 @@ router.post('/signin', passport.authenticate('local', {
           email: req.body.email,
           password: hashedPassword,
         });
-  
+
+        
         // Save the user to the database
         await newUser.save();
         res.redirect("/signin");
-  
-        // if(newUser){
-        //     passport.authenticate("local")(req, res, function(){
-        //         res.redirect("/profile");
-        //     })
-        // }
-        // else{
-            
-        // }
+
 
       }
     } catch (err) {

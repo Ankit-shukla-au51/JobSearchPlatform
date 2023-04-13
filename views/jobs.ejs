@@ -17,28 +17,28 @@
               <label for="job-title">Job Title:</label>
               <select id="job-title" name="jobtitle">
                 <option value="">All</option>
-                <option value="sofware-engineer">Software Engineer</option>
-                <option value="fullstack-web-devleoper">FullStackWeb Developer</option>
-                <option value="frontend-web-dev">Frontend Web Developer</option>
-                <option value="Backend-web-dev">Backend Web Developer</option>
+                <option value="Sofware Engineer">Software Engineer</option>
+                <option value="Fullstack Web Devleoper">FullStackWeb Developer</option>
+                <option value="Frontend Web Devleoper">Frontend Web Developer</option>
+                <option value="Backend Web Devleoper">Backend Web Developer</option>
               </select>
               <label for="location">Location:</label>
               <select id="location" name="location">
                 <option value="">All</option>
-                <option value="delhi">Delhi</option>
-                <option value="mumbai">Mumbai</option>
-                <option value="hydrabad">Hydrabad</option>
-                <option value="pune">Pune</option>
-                <option value="banglore">Banglore</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Hydrabad">Hydrabad</option>
+                <option value="Pune">Pune</option>
+                <option value="Banglore">Banglore</option>
               </select>
               <label for="employment-type">Employment Type:</label>
               <select id="employment-type" name="employmenttype">
                 <option value="">All</option>
-                <option value="fulltime">Full-time</option>
-                <option value="parttime">Part-time</option>
-                <option value="contract">Contract</option>
-                <option value="temporary">Temporary</option>
-                <option value="internship">Internship</option>
+                <option value="Fulltime">Full-time</option>
+                <option value="Parttime">Part-time</option>
+                <option value="Contract">Contract</option>
+                <option value="Temporary">Temporary</option>
+                <option value="Internship">Internship</option>
               </select>
               <button type="submit">Search</button>
             </form>
@@ -49,8 +49,8 @@
             <div class="job job-details">
               <h2><%= job.jobtitle %></h2>
               <p><%= job.companyname %></p>
-              </p><%= job.location %></p>
-              <p><%= job.employmenttype %></p>
+              </p>Location : <%= job.location %></p>
+              <p>Type : <%= job.employmenttype %></p>
               <p><%= job.jobDesc %></p>
             </div>
           <% }); %>
@@ -59,6 +59,9 @@
         </div>
       </main>
     </div>
+
+    <%- include("partials/footer.ejs"); -%>
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>

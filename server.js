@@ -25,8 +25,7 @@
 
     const Users = require("./models/users");
 
-    // app.use(express.json());
-    // app.use(express.urlencoded({extended:false}));
+   
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 

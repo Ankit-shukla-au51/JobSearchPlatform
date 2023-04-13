@@ -27,47 +27,30 @@ router.get('/jobs', async (req, res) => {
   }
 });
 
-router.get('/filterjobs',async(req, res) => {
-  const jobtitle = req.query.jobtitle;
-  const location = req.query.location;
-  const employmenttype = req.query.employmenttype;
-  let filterJobs;
-  if(jobtitle && location && employmenttype ){
-   filterJobs= await Jobs.find({jobtitle:jobtitle,location:location,employmenttype:employmenttype});
-  }
-  else if(!jobtitle && location && employmenttype){
-    filterJobs= await Jobs.find({location:location,employmenttype:employmenttype})
-  }
-  else if(jobtitle && !location && employmenttype){
-    filterJobs= await Jobs.find({jobtitle:jobtitle,employmenttype:employmenttype})
-  }
-  else if(jobtitle && location && !employmenttype){
-    filterJobs= await Jobs.find({jobtitle:jobtitle,location:location})
-  }
-  else if(!jobtitle && !location && employmenttype){
-    filterJobs= await Jobs.find({employmenttype:employmenttype})
-  }
-  else if(jobtitle && !location && !employmenttype){
-    filterJobs= await Jobs.find({jobtitle:jobtitle})
-  }
-  else if(!jobtitle && location && !employmenttype){
-    filterJobs= await Jobs.find({location:location})
-  }
-  else{
-    filterJobs= await Jobs.find();
-   }
-  
-  console.log(filterJobs);
-  res.render('jobs', { jobs: filterJobs });
-})
 
-// const filteredJobs = jobs.filter(job => {
-//   return (
-//     (!req.query.jobtitle || req.query.jobtitle === job.jobtitle) &&
-//     (!req.query.location || req.query.location === job.location) &&
-//     (!req.query.employmenttype || req.query.employmenttype === job.employmenttype)
-//   );
-// });
+
+router.get('/filterjobs', async (req, res) => {
+  const { jobtitle, location, employmenttype } = req.query;
+  let filterJobs;
+  let query = {};
+  if (jobtitle) {
+    query.jobtitle = jobtitle;
+  }
+  if (location) {
+    query.location = location;
+  }
+  if (employmenttype) {
+    query.employmenttype = employmenttype;
+  }
+  try {
+    filterJobs = await Jobs.find(query);
+    // console.log(filterJobs);
+    res.render('jobs', { jobs: filterJobs });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
 
 router.get('/employer', async (req, res) => {
   try {
