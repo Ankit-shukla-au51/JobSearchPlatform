@@ -8,19 +8,19 @@ const router = express.Router();
 router.get('/jobs', async (req, res) => {
   try {
     const jobs = await Jobs.find();
-    // if (req.isAuthenticated()) {
+
+    if (req.isAuthenticated()) {
+       const user = await Users.findById(req.user._id);
     //   const user = await UsersInfo.findOne({ email: req.query.email });
-    //   if(user){
-    //     res.render('jobs', { jobs:jobs,user:user });
-    //   }
-    //   else{
-    //   res.render('jobs', { jobs:jobs,user:""});
-    //   }
-    // }
-    // else{
-    //   res.render('jobs', { jobs:jobs,user:"" })
-    // }
-    res.render('jobs', { jobs:jobs });
+
+        res.render('jobs', { jobs:jobs,user:user });
+      
+    }
+    else{
+      res.render('jobs', { jobs:jobs,user:"" })
+    }
+
+    // res.render('jobs', { jobs:jobs });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
@@ -44,8 +44,18 @@ router.get('/filterjobs', async (req, res) => {
   }
   try {
     filterJobs = await Jobs.find(query);
-    // console.log(filterJobs);
-    res.render('jobs', { jobs: filterJobs });
+    
+    if (req.isAuthenticated()) {
+      const user = await Users.findById(req.user._id);
+   
+
+       res.render('jobs', {jobs: filterJobs, user:user });
+     
+   }
+   else{
+     res.render('jobs', { jobs: filterJobs,user:"" })
+   }
+    // res.render('jobs', { jobs: filterJobs });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');

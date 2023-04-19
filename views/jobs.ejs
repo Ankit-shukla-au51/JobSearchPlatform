@@ -7,9 +7,14 @@
     <link rel="stylesheet" type="text/css" href="css/stylejobs.css">
   </head>
   <body>
-  
     
-      <%- include("partials/navbar.ejs"); -%>
+    <% if (user.fullname) { %>
+      <%- include("partials/usernavbar.ejs"); -%>
+      <%} else { %>
+        <%- include("partials/navbar.ejs"); -%>
+      <% } %>    
+      
+      
       <main>
         <div class="jobs">
           <div class="filter">
@@ -58,7 +63,7 @@
           
         </div>
       </main>
-    </div>
+    </div>  
 
     <%- include("partials/footer.ejs"); -%>
     

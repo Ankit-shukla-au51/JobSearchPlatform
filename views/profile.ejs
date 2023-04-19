@@ -24,13 +24,17 @@
                                                         
                              <div class="profile-info">
                                 <h1>Welcome, <%= user.fullname %>!</h1>
-                                <a href="/editprofile?email=<%= user.email %>">Edit Profile</a>
+                                <% if (userinfo) { %>
+                                    <a href="/editprofile?email=<%= user.email %>">Edit Profile</a>
+                                <%} %>
+
+                                    
                             </div>
                         </div>
                     
                     </div>
                 
-                    <div id="imageUploadForm" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    
                       
                     </div>
                 <div class="profile-body">
@@ -46,13 +50,13 @@
                             
 
                             <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" value="<%=user.email %>" disabled>
+                            <input type="email" id="email" name="email" value="<%=user.email %>"  disabled>
                                 
                             <label for="phone">Phone:</label>
                             <% if (userinfo.phone) { %>
-                            <input type="tel" id="phone" name="phone" value="<%=userinfo.phone %>" disabled>
+                            <input type="tel" id="phone" name="phone" value="<%=userinfo.phone %>" minlength="8" maxlength="12" pattern="[0-9]{8,12}" title="Please enter a valid phone number between 8 to 12 digits" disabled>
                             <%} else { %>
-                                <input type="tel" id="phone" name="phone" required>
+                                <input type="tel" id="phone" name="phone" minlength="8" maxlength="12" pattern="[0-9]{8,12}" title="Please enter a valid phone number between 8 to 12 digits" required>
                                 <% } %>
                             
                             <label for="address">Address:</label>
@@ -227,11 +231,9 @@
                                 <% } %>
                             
                             
-                            <% if (userinfo) { %>
-                                <input type="submit" id="submit-btn" value="submit" disabled>
-                            <%} else { %>
+                            <% if (!userinfo) { %>
                                 <input type="submit" id="submit-btn" value="submit">
-                                <% } %>
+                            <%} %>
                             
                     </div>
                     </form>
